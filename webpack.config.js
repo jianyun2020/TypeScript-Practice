@@ -14,6 +14,10 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     // 打包后文件的名字
     filename: "bundle.js",
+    // 告诉webpack不使用箭头函数
+    environment: {
+      arrowFunction: false
+    }
   },
   // 指定webpack打包时要使用的模块
   module: {
