@@ -18,7 +18,7 @@ class GameControl {
   constructor() {
     this.snake = new Snake();
     this.food = new Food();
-    this.scorePanel = new ScorePanel();
+    this.scorePanel = new ScorePanel(10, 1);
     this.init();
   }
 
@@ -82,9 +82,9 @@ class GameControl {
   // 检查蛇是否吃到食物
   checkEat(X:number, Y:number) {
     if (X === this.food.X && Y === this.food.Y) {
+      this.snake.addBody();
       this.food.change();
       this.scorePanel.addScore();
-      this.snake.addBody();
     }
   }
 }
