@@ -38,8 +38,9 @@ class GameControl {
    * ArrowRight ie中Right
    */
   keydownHandler(event:KeyboardEvent) {
-
-    this.direction = event.key;
+    if(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      this.direction = event.key;
+    }
   }
 
   run() {
@@ -65,10 +66,26 @@ class GameControl {
         break;
     }
 
-    this.snake.X = X;
-    this.snake.Y = Y;
+    this.checkEat(X, Y);
+
+    try {
+      this.snake.X = X;
+      this.snake.Y = Y;
+    } catch(e:any) {
+      alert('Game Over!');
+      this.isLive = false;
+    }
 
     this.isLive && setTimeout(this.run.bind(this), 300 - (this.scorePanel.level - 1) * 30);
+  }
+
+  // 检查蛇是否吃到食物
+  checkEat(X:number, Y:number) {
+    if (X === this.food.X && Y === this.food.Y) {
+      this.food.change();
+      this.scorePanel.addScore();
+      this.snake.addBody();
+    }
   }
 }
 
